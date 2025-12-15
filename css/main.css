@@ -209,3 +209,8 @@ h1 {
     pointer-events: none;
     */
 }
+.ss{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
