@@ -1,3 +1,211 @@
+/* ========================================================= */
+/* 0. UMUMIY VA ASOSIY SOZLAMALAR */
+/* ========================================================= */
+
+:root {
+    --primary-color: #0077b6; /* Asosiy ko'k rang */
+    --secondary-color: #00b4d8; /* Ikkinchi darajali rang */
+    --background-light: #f4f7f6;
+    --text-dark: #2a2a2a;
+    --white: #ffffff;
+    --red-alert: #e63946;
+}
+
+/* HTML va Body uchun asosiy stil */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    user-select: none;
+}
+
+/* Markazlashgan Konteyner (Talab qilingan 1200px) */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* ========================================================= */
+/* 1. SOAT VA SARLAVHA STILLARI */
+/* ========================================================= */
+
+h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+#clock {
+    font-size: 5rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 50px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: var(--white);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    letter-spacing: 5px; /* Raqamlar orasidagi masofa */
+}
+
+/* ========================================================= */
+/* 2. MODAL OYNA VA TUGMA STILLARI */
+/* ========================================================= */
+
+.wrapper {
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s;
+}
+
+.show-btn {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    box-shadow: 0 4px 10px rgba(0, 180, 216, 0.4);
+}
+
+.show-btn:hover {
+    background-color: #0099b3;
+}
+
+.show-btn:active {
+    transform: scale(0.98);
+}
+
+/* ========================================================= */
+/* 3. MODAL (KALKULYATOR) VA OVERLAY */
+/* ========================================================= */
+
+/* Modalning Fon Qatlami */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* To'qroq fon */
+    z-index: 10;
+    backdrop-filter: blur(4px); /* Fonga xira effekt berish */
+    transition: opacity 0.3s;
+}
+
+/* Modal Oyna (Kalkulyatorni o'z ichiga oladi) */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 20;
+    
+    /* Kalkulyator uchun minimal kenglik */
+    width: 90%;
+    max-width: 350px; 
+    
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+/* ========================================================= */
+/* 4. KALKULYATOR STILLARI (MODAL ICHIDAGI) */
+/* ========================================================= */
+
+.modal h2 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#natija {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 2em;
+    text-align: right;
+    border: none;
+    border-radius: 8px;
+    background-color: #eaf1f5;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tugmalar uchun tartib */
+.modal button {
+    width: 23%; /* Tugmalar bir qatorda 4 tadan joylashishi uchun */
+    padding: 15px;
+    margin: 4px; /* Tugmalar orasidagi bo'shliq */
+    font-size: 1.1rem;
+    border-radius: 50%; /* Dumaloq tugmalar */
+    background-color: #f1f1f1;
+    color: var(--text-dark);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
+}
+
+/* Operator tugmalar */
+.modal button[data-val="+"],
+.modal button[data-val="-"],
+.modal button[data-val="*"],
+.modal button[data-val="/"] {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    font-weight: bold;
+}
+
+/* Barobar tugmasi */
+#barobar {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+/* O'chirish tugmasi */
+#ochrish {
+    background-color: var(--red-alert);
+    color: var(--white);
+}
+
+.modal button:hover {
+    filter: brightness(0.95);
+}
+
+.modal button:active {
+    transform: scale(0.95);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================================= */
+/* 5. YORDAMCHI KLASSLAR */
+/* ========================================================= */
+
 .hidden {
     display: none;
+    /* Yoki animatsiya uchun: 
+    opacity: 0;
+    pointer-events: none;
+    */
 }

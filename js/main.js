@@ -21,6 +21,50 @@ setInterval(createClock,1000);
 
 
 
+
+
+
+
+let barobar = document.getElementById('barobar')
+let ochrish = document.getElementById('ochrish')
+let natija = document.getElementById('natija')
+
+let buttons = document.querySelectorAll('button[data-val]')
+
+buttons.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        natija.value += btn.dataset.val;
+
+
+         if (val === '.') {
+            // Agar natijada operator bo'lmasa va nuqta allaqachon bo'lsa, qo'shmaymiz
+            if (!currentValue.includes('+') && !currentValue.includes('-') && !currentValue.includes('*') && !currentValue.includes('/') && currentValue.includes('.')) {
+                return; 
+            }
+            // Agar operator bo'lsa, faqat oxirgi raqamda nuqta borligini tekshirish kerak bo'ladi
+            // Ammo sodda eval tizimida shunchaki qo'shib ketsak ham ishlaydi, faqat sintaksis xatosi kelib chiqadi
+        }
+        natija.value += val;
+    })
+   
+})
+
+barobar.addEventListener('click',()=>{
+    try{
+        natija.value = eval(natija.value);
+    }catch{
+        natija.value= 'Error';
+    }
+})
+ochrish.addEventListener('click',()=>{
+    natija.value='';
+})
+
+
+
+
+
+
 let showBtn = document.getElementById("show-btn");
 let closeBtn = document.getElementById("close-btn");
 let modal = document.getElementById("modal");
@@ -65,42 +109,3 @@ document.addEventListener("keydown", (e) => {
     addHidden();
   }
 });
-
-
-
-
-let barobar = document.getElementById('barobar')
-let ochrish = document.getElementById('ochrish')
-let natija = document.getElementById('natija')
-
-let buttons = document.querySelectorAll('button[data-val]')
-
-buttons.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        natija.value += btn.dataset.val;
-
-
-         if (val === '.') {
-            // Agar natijada operator bo'lmasa va nuqta allaqachon bo'lsa, qo'shmaymiz
-            if (!currentValue.includes('+') && !currentValue.includes('-') && !currentValue.includes('*') && !currentValue.includes('/') && currentValue.includes('.')) {
-                return; 
-            }
-            // Agar operator bo'lsa, faqat oxirgi raqamda nuqta borligini tekshirish kerak bo'ladi
-            // Ammo sodda eval tizimida shunchaki qo'shib ketsak ham ishlaydi, faqat sintaksis xatosi kelib chiqadi
-        }
-        natija.value += val;
-    })
-   
-})
-
-barobar.addEventListener('click',()=>{
-    try{
-        natija.value = eval(natija.value);
-    }catch{
-        natija.value= 'Error';
-    }
-})
-ochrish.addEventListener('click',()=>{
-    natija.value='';
-})
-
