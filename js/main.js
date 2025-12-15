@@ -27,6 +27,7 @@ setInterval(createClock,1000);
 
 let barobar = document.getElementById('barobar')
 let ochrish = document.getElementById('ochrish')
+let backspaceBtn = document.getElementById('backspace'); // X tugmasi
 let natija = document.getElementById('natija')
 
 let buttons = document.querySelectorAll('button[data-val]')
@@ -60,7 +61,13 @@ ochrish.addEventListener('click',()=>{
     natija.value='';
 })
 
-
+backspaceBtn.addEventListener('click', () => {
+    let currentExpression = natija.value;
+    if (currentExpression.length > 0) {
+        // Oxirgi belgisiz qolgan qismini qayta yuklaymiz
+        natija.value = currentExpression.slice(0, -1);
+    }
+});
 
 
 
